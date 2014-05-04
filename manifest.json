@@ -1,0 +1,15 @@
+{
+    "name": "Production Warning Bar",
+    "version": "0.1.0",
+    "manifest_version": 2,
+    "options_page": "options.html",
+    "permissions": [
+        "storage", "tabs"
+    ],
+    "content_scripts": [
+        {
+            "matches": ["http://*/*", "https://*/*"],
+            "js": ["content.js"]
+        }
+    ]
+}
