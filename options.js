@@ -8,7 +8,8 @@
         domains: '',
         barColor: 'FF0000',
         barText: 'In Production Environment',
-        showModal: true
+        showModal: true,
+        filter: 'none'
     }, function(items) {
         //autofill the values to the form elements
         document.getElementById('barPosition').value = items.barPosition;
@@ -17,6 +18,7 @@
         document.getElementById('barText').value = items.barText;
         document.getElementById('barColor').style.backgroundColor = "#" + items.barColor;
         document.getElementById('showModal').checked = items.showModal;
+        document.getElementById('filter').value = items.filter;
     });
 
     document.getElementById('save').onclick = onSaveClick;
@@ -33,13 +35,15 @@
         var barColor = document.getElementById('barColor').value;
         var barText = document.getElementById('barText').value;
         var showModal = document.getElementById('showModal').checked;
+        var filter = document.getElementById('filter').value;
 
         chrome.storage.sync.set({
             barPosition: barPosition,
             domains: domains,
             barColor: barColor,
             barText: barText,
-            showModal: showModal
+            showModal: showModal,
+            filter: filter
         }, function() {
             //close options tab
             chrome.tabs.getCurrent(function(tab) {
