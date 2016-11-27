@@ -7,7 +7,8 @@
         barPosition: 'top',
         domains: '',
         barColor: 'FF0000',
-        barText: 'In Production Environment'
+        barText: 'In Production Environment',
+        showModal: true
     }, function(items) {
         //autofill the values to the form elements
         document.getElementById('barPosition').value = items.barPosition;
@@ -15,6 +16,7 @@
         document.getElementById('barColor').value = items.barColor;
         document.getElementById('barText').value = items.barText;
         document.getElementById('barColor').style.backgroundColor = "#" + items.barColor;
+        document.getElementById('showModal').checked = items.showModal;
     });
 
     document.getElementById('save').onclick = onSaveClick;
@@ -30,11 +32,14 @@
         var domains = document.getElementById('domains').value;
         var barColor = document.getElementById('barColor').value;
         var barText = document.getElementById('barText').value;
+        var showModal = document.getElementById('showModal').checked;
+
         chrome.storage.sync.set({
             barPosition: barPosition,
             domains: domains,
             barColor: barColor,
-            barText: barText
+            barText: barText,
+            showModal: showModal
         }, function() {
             //close options tab
             chrome.tabs.getCurrent(function(tab) {
@@ -43,7 +48,7 @@
             });
         });
     }
-    
+
     /**
      * change the background color of the color select text box to reflect the hex value change
      */
