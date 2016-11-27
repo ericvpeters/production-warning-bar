@@ -9,7 +9,8 @@
         domains: '',
         barColor: 'FF0000',
         barText: 'In Production Environment',
-        showModal: true
+        showModal: true,
+        filter: 'none'
     }, function(items) {
         //get domain array
         var domains = items.domains.split("\n");
@@ -42,6 +43,7 @@
                 if (items.showModal) {
                   document.getElementById('production-warning-bar-close').onclick = closeModal;
                 }
+                document.getElementsByTagName('body')[0].style.filter = items.filter;
                 //make sure only one bar is made
                 noMatch = false;
             }
