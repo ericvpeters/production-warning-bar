@@ -1,5 +1,5 @@
 /**
- * Checks list of domains and if current domain matches, display the 
+ * Checks list of domains and if current domain matches, display the
  * warning bar
  */
 (function() {
@@ -13,7 +13,7 @@
         //get domain array
         var domains = items.domains.split("\n");
         var noMatch = true;
-        
+
         //loop through domains and see if current domain is part of list
         for (var key in domains) {
             var domain = domains[key].replace(' ', '');
@@ -25,20 +25,37 @@
             if (document.domain.search(regex) >= 0 && noMatch) {
                 //the html string of the bar to add
                 var html = '<div id="production-warning-all"><div id="production-warning-bar" style="color:black;'
-                        + 'z-index:9999; width:100%; height:20px; background-color:#' + items.barColor + '; position: fixed; ' + items.barPosition + ': 0px;'
+                        + 'z-index:2147483647; width:100%; height:20px; background-color:#' + items.barColor + '; position: fixed; ' + items.barPosition + ': 0px;'
                         + '	text-align:center;font-size:12px; '
                         + 'font-weight:bold; font-family: \'Helvetica Neue\', Helvetica, Arial, Verdana, sans-serif;">'
                         + items.barText + '<a href="#" id="production-warning-close"><sup>[X]</sup></a></div></div>';
-                
+
+                html += createModal();
                 //create warning bar
                 var container = create(html);
                 document.body.appendChild(container);
                 document.getElementById('production-warning-close').onclick = closeWarningBar;
                 //make sure only one bar is made
                 noMatch = false;
+
+                createModal();
+
             }
         }
     });
+
+    function createModal() {
+        var modalHtml  = `
+        <div id="myModal" class="production-warning-bar-modal" style="display: block">
+                        <!-- Modal content -->
+                        <div class="production-warning-bar-modal-content">
+                          <span class="production-warning-bar-close">×</span>
+                          <p>Some text in the Modal..</p>
+                        </div>
+                      </div>`;
+        return modalHtml;
+    }
+
     /**
      * Close the warning bar
      */
