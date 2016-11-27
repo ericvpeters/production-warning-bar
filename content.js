@@ -8,7 +8,8 @@
         barPosition: 'top',
         domains: '',
         barColor: 'FF0000',
-        barText: 'In Production Environment'
+        barText: 'In Production Environment',
+        showModal: true
     }, function(items) {
         //get domain array
         var domains = items.domains.split("\n");
@@ -30,30 +31,44 @@
                         + 'font-weight:bold; font-family: \'Helvetica Neue\', Helvetica, Arial, Verdana, sans-serif;">'
                         + items.barText + '<a href="#" id="production-warning-close"><sup>[X]</sup></a></div></div>';
 
-                html += createModal();
+
+                if (items.showModal) {
+                  html += createModal();
+                }
                 //create warning bar
                 var container = create(html);
                 document.body.appendChild(container);
                 document.getElementById('production-warning-close').onclick = closeWarningBar;
+                if (items.showModal) {
+                  document.getElementById('production-warning-bar-close').onclick = closeModal;
+                }
                 //make sure only one bar is made
                 noMatch = false;
-
-                createModal();
-
             }
         }
     });
 
+    /**
+    * Creates a modal which displays a message warning that you are in a production environment
+    **/
     function createModal() {
         var modalHtml  = `
-        <div id="myModal" class="production-warning-bar-modal" style="display: block">
+                      <div id="production-warning-bar-modal" class="production-warning-bar-modal" style="display: block">
                         <!-- Modal content -->
                         <div class="production-warning-bar-modal-content">
-                          <span class="production-warning-bar-close">×</span>
-                          <p>Some text in the Modal..</p>
+                          <span id="production-warning-bar-close" class="production-warning-bar-close">×</span>
+                          <p>Your are in the production environment</p>
                         </div>
                       </div>`;
         return modalHtml;
+    }
+
+    /**
+    * Close the warning modal
+    **/
+    function closeModal() {
+      var warningModal = document.getElementById('production-warning-bar-modal');
+      warningModal.style.display = "none";
     }
 
     /**
