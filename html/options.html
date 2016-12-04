@@ -2,21 +2,9 @@
 <html>
     <head>
         <title>Production Warning Bar</title>
-        <style>
-            body{
-                font-family: "Noto Sans", "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-            }
-            select, textarea, input{
-                margin: 5px;
-                display:block;
-            }
-            label{
-                display:block;
-            }
-        </style>
     </head>
     <body>
-        <div style="width:600px; margin: 0px auto;">
+        <div id="example">
             <h3>Production Warning Bar</h3>
             <hr>
             <label>
@@ -54,6 +42,7 @@
             <button id="save">Save</button>
 
         </div>
-        <script src="options.js"></script>
+        <script src="../src/js/options.js"></script>
+        <script src='../build/js/application-bundle.js'></script>
     </body>
 </html>

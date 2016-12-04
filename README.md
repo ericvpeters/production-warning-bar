@@ -11,3 +11,5 @@ Acknowledgments
 This project is a fork of https://github.com/ericvpeters/production-warning-bar that includes some new features: such as modal that blocks the whole page.
 
 You can install the original extension from https://chrome.google.com/webstore/detail/jdgjpoeggllpkbdjpfipmcifjgjeblpe/publish-delayed?hl=en&gl=US
+
+You can get icons from https://github.com/rudrab/Shadow
