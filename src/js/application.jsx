@@ -7,7 +7,7 @@ import AppBar from 'material-ui/AppBar';
 import TextField from 'material-ui/TextField';
 import {Card, CardHeader, CardTitle, CardText} from 'material-ui/Card';
 import Toggle from 'material-ui/Toggle';
-import { ChromePicker } from 'react-color';
+import ColorPicker from './components/colorPicker.jsx'
 
 injectTapEventPlugin();
 
@@ -56,7 +56,7 @@ class MenuBarOptions extends React.Component {
                     floatingLabelText="Warning message"
                     floatingLabelFixed={false}
                 />
-                <ChromePicker/>
+                <ColorPicker></ColorPicker>
             </CardText>
         </Card>
         );
