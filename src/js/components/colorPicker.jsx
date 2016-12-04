@@ -39,6 +39,7 @@ class ColorPicker extends React.Component {
         this.setState({
             displayColorPicker: false
         });
+        this.props.onColorChange(this.state.color);
     }
 
     handleClose () {
