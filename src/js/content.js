@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import WarningBar from './components/warningBar.jsx';
 import injectTapEventPlugin from 'react-tap-event-plugin';
+import PreferencesManager from './utils/preferences.js'
 
 injectTapEventPlugin();
 
@@ -19,14 +20,7 @@ class Content {
 
     execute() {
         //Get the stored values
-        chrome.storage.sync.get({
-            barPosition: 'top',
-            domains: '*.gnu.org',
-            barColor: 'FF0000',
-            barText: 'In Production Environment',
-            showModal: true,
-            filter: 'none'
-        }, this.loadWarningComponents);
+        PreferencesManager.INSTANCE().loadPreferences(this.loadWarningComponents)
     }
 
     loadWarningComponents(items) {
@@ -53,9 +47,13 @@ class Content {
                 document.body.insertBefore(container, document.body.firstChild);
 
                 let productionWarningBar = document.getElementById('production-warning-all');
+                const barStyle = {
+                    'backgroundColor': items.barColor
+                };
+                
                 ReactDOM.render(
                     <MuiThemeProvider>
-                        <WarningBar/>
+                        <WarningBar title={ items.barText } style={ barStyle }/>
                     </MuiThemeProvider>, productionWarningBar);
                 document.getElementById('production-warning-blank-space').setAttribute('style',`height: ${productionWarningBar.clientHeight}px`);
                 //make sure only one bar is made
