@@ -29,8 +29,9 @@ class PreferencesManager {
        chrome.storage.sync.get( this.defaultValues(), callback);
     }
 
-    savePreferences(callback) {
-        chrome.storage.sync.set( this.defaultValues(), callback);
+    savePreferences(properties, callback = function () {}) {
+        console.log(properties);
+        chrome.storage.sync.set( properties, callback);
     }
 }
 

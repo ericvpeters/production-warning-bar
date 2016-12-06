@@ -3,6 +3,7 @@ import Toggle from 'material-ui/Toggle';
 import TextField from 'material-ui/TextField';
 import {Card, CardHeader, CardTitle, CardText, CardActions} from 'material-ui/Card';
 
+import { connect } from 'react-redux'
 
 import ColorPicker from './colorPicker.jsx';
 import WarningBar from './warningBar.jsx';
@@ -83,4 +84,46 @@ class WarningBarOptions extends React.Component {
     }
 }
 
-export default WarningBarOptions;
+ WarningBarOptions.propTypes = {
+ onMessageChange: React.PropTypes.func,
+ barColor: React.PropTypes.string,
+ warningMessage: React.PropTypes.string,
+ enable: React.PropTypes.bool
+ };
+
+WarningBarOptions.defaultProps = {
+    onMessageChange: () => { },
+    barColor: '#ff0000',
+    warningMessage: 'Production Environment',
+    enable: true
+};
+
+
+
+const mapStateToProps = (state, ownProps) => {
+    return {
+        barColor: state.barColor,
+        warningMessage: state.warningMessage,
+        enable: true
+    }
+};
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        onMessageChange: (message) => {
+            dispatch(changeWarningBarMessage(message));
+        },
+        onColorChange: (color) => {
+            dispatch(changeWarningBarColor(color));
+        }
+    }
+};
+
+const WarningBarPreferences = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(WarningBarOptions);
+
+
+export default WarningBarPreferences;
+
