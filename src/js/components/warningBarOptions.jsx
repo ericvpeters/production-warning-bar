@@ -3,8 +3,6 @@ import Toggle from 'material-ui/Toggle';
 import TextField from 'material-ui/TextField';
 import {Card, CardHeader, CardTitle, CardText, CardActions} from 'material-ui/Card';
 
-import { connect } from 'react-redux'
-
 import ColorPicker from './colorPicker.jsx';
 import WarningBar from './warningBar.jsx';
 
@@ -36,10 +34,12 @@ class WarningBarOptions extends React.Component {
         this.setState({
             barColor: color
         });
+        this.props.onColorChange(color);
     }
 
     hanldeWarningMessageChange (event) {
         this.setState({ warningMessage: event.target.value });
+        this.props.onMessageChange(event.target.value);
     }
 
     render() {
@@ -85,14 +85,16 @@ class WarningBarOptions extends React.Component {
 }
 
  WarningBarOptions.propTypes = {
- onMessageChange: React.PropTypes.func,
- barColor: React.PropTypes.string,
- warningMessage: React.PropTypes.string,
- enable: React.PropTypes.bool
+     onMessageChange: React.PropTypes.func,
+     onColorChange: React.PropTypes.func,
+     barColor: React.PropTypes.string,
+     warningMessage: React.PropTypes.string,
+     enable: React.PropTypes.bool
  };
 
 WarningBarOptions.defaultProps = {
     onMessageChange: () => { },
+    onColorChange: () => { },
     barColor: '#ff0000',
     warningMessage: 'Production Environment',
     enable: true
@@ -100,30 +102,4 @@ WarningBarOptions.defaultProps = {
 
 
 
-const mapStateToProps = (state, ownProps) => {
-    return {
-        barColor: state.barColor,
-        warningMessage: state.warningMessage,
-        enable: true
-    }
-};
-
-const mapDispatchToProps = (dispatch, ownProps) => {
-    return {
-        onMessageChange: (message) => {
-            dispatch(changeWarningBarMessage(message));
-        },
-        onColorChange: (color) => {
-            dispatch(changeWarningBarColor(color));
-        }
-    }
-};
-
-const WarningBarPreferences = connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(WarningBarOptions);
-
-
-export default WarningBarPreferences;
-
+export default WarningBarOptions;
