@@ -15,6 +15,7 @@ class PreferencesManager {
 
     defaultValues () {
         const values = {
+            enableWarningBar: false,
             barPosition: 'top',
             domains: '*.gnu.org',
             barColor: '#ff5063',
@@ -30,7 +31,6 @@ class PreferencesManager {
     }
 
     savePreferences(properties, callback = function () {}) {
-        console.log(properties);
         chrome.storage.sync.set( properties, callback);
     }
 }

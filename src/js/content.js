@@ -20,7 +20,7 @@ class Content {
 
     execute() {
         //Get the stored values
-        PreferencesManager.INSTANCE().loadPreferences(this.loadWarningComponents)
+        PreferencesManager.INSTANCE().loadPreferences(this.loadWarningComponents);
     }
 
     loadWarningComponents(items) {
@@ -38,24 +38,27 @@ class Content {
             //is only added once
 
             if (document.domain.search(regex) >= 0 && noMatch) {
-                let blankSpace = Content.createHTMLElement('<div id="production-warning-blank-space"/>');
-                document.body.insertBefore(blankSpace, document.body.firstChild);
-                //create warning bar
-                let html = '<div id="production-warning-all" style="position: fixed !important; ' +
-                    'left: 0 !important; width: 100% !important; top: 0 !important; z-index: 2147483647 !important"/>';
-                let container = Content.createHTMLElement(html);
-                document.body.insertBefore(container, document.body.firstChild);
 
-                let productionWarningBar = document.getElementById('production-warning-all');
-                const barStyle = {
-                    'backgroundColor': items.barColor
-                };
-                
-                ReactDOM.render(
-                    <MuiThemeProvider>
-                        <WarningBar title={ items.barText } style={ barStyle }/>
-                    </MuiThemeProvider>, productionWarningBar);
-                document.getElementById('production-warning-blank-space').setAttribute('style',`height: ${productionWarningBar.clientHeight}px`);
+                if (items.enableWarningBar) {
+                    let blankSpace = Content.createHTMLElement('<div id="production-warning-blank-space"/>');
+                    document.body.insertBefore(blankSpace, document.body.firstChild);
+                    //create warning bar
+                    let html = '<div id="production-warning-all" style="position: fixed !important; ' +
+                        'left: 0 !important; width: 100% !important; top: 0 !important; z-index: 2147483647 !important"/>';
+                    let container = Content.createHTMLElement(html);
+                    document.body.insertBefore(container, document.body.firstChild);
+
+                    let productionWarningBar = document.getElementById('production-warning-all');
+                    const barStyle = {
+                        'backgroundColor': items.barColor
+                    };
+
+                    ReactDOM.render(
+                        <MuiThemeProvider>
+                            <WarningBar title={ items.barText } style={ barStyle }/>
+                        </MuiThemeProvider>, productionWarningBar);
+                    document.getElementById('production-warning-blank-space').setAttribute('style', `height: ${productionWarningBar.clientHeight}px`);
+                }
                 //make sure only one bar is made
                 noMatch = false;
             }

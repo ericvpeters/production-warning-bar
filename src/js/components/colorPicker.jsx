@@ -15,7 +15,6 @@ class ColorPicker extends React.Component {
         this.state = {
             displayColorPicker: false,
             color: props.color ? props.color : "#a4c639",
-            previousColor: props.color ? props.color : "#a4c639"
         };
         this.handleClick = this.handleClick.bind(this);
         this.handleChangeComplete = this.handleChangeComplete.bind(this);
@@ -31,7 +30,7 @@ class ColorPicker extends React.Component {
     handleClick () {
         this.setState({
             displayColorPicker: !this.state.displayColorPicker,
-            previousColor: this.state.color
+            color: this.props.color
         })
     }
 
@@ -45,7 +44,7 @@ class ColorPicker extends React.Component {
     handleClose () {
         this.setState({
             displayColorPicker: false,
-            color: this.state.previousColor
+            color: this.props.color
         });
     }
 
@@ -77,7 +76,7 @@ class ColorPicker extends React.Component {
             <div>
                 <label alt="Choose colour">Colour:</label>
                 <RaisedButton
-                    backgroundColor={ this.state.color }
+                    backgroundColor={ this.props.color}
                     style={ style }
                     icon={ <EditorFormatColorFill color={fullWhite} /> }
                     onClick={ this.handleClick }
@@ -89,7 +88,7 @@ class ColorPicker extends React.Component {
                     open={ this.state.displayColorPicker }
                     contentStyle={ customDialogStyle }
                     onRequestClose={ this.handleClose }>
-                    <ChromePicker color= { this.state.color } onChangeComplete={ this.handleChangeComplete }/>
+                    <ChromePicker color= { this.state.color} onChangeComplete={ this.handleChangeComplete }/>
                 </Dialog>
             </div>
         );

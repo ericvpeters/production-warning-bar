@@ -10,63 +10,50 @@ class WarningBarOptions extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            expanded: false,
-            warningMessage: "Warning Message",
-            barColor: "#ff0000"
-        };
-        this.handleExpandChange = this.handleExpandChange.bind(this);
         this.handleToggle = this.handleToggle.bind(this);
         this.handleColorChange = this.handleColorChange.bind(this);
         this.hanldeWarningMessageChange = this.hanldeWarningMessageChange.bind(this);
 
     }
 
-    handleExpandChange (expanded) {
-        this.setState({expanded: expanded});
-    }
 
     handleToggle (event, toggle) {
-        this.setState({expanded: toggle});
+        this.props.onBarEnable(!this.props.enable);
     }
 
     handleColorChange (color) {
-        this.setState({
-            barColor: color
-        });
         this.props.onColorChange(color);
     }
 
     hanldeWarningMessageChange (event) {
-        this.setState({ warningMessage: event.target.value });
         this.props.onMessageChange(event.target.value);
     }
 
     render() {
 
         const barStyle = {
-            'backgroundColor': this.state.barColor
+            'backgroundColor': this.props.barColor
         };
 
         return (
-            <Card expanded={this.state.expanded} onExpandChange={this.handleExpandChange}>
+            <Card expanded={ this.props.enable }>
                 <CardHeader
                     title="Warning bar options"
                     subtitle="Set custom configuration for the warning bar"
                     avatar="../img/svg/application-info.svg"
-                    actAsExpander={true}
-                    showExpandableButton={false}
+                    actAsExpander={ true }
+                    showExpandableButton={ false }
                 />
                 <CardText>
                     <Toggle
-                        toggled={this.state.expanded}
-                        onToggle={this.handleToggle}
+                        toggled={ this.props.enable }
+                        onToggle={ this.handleToggle }
                         labelPosition="left"
                         label="Enable"
                     />
                 </CardText>
                 <CardActions expandable= { true }>
-                    <WarningBar title={ this.state.warningMessage }
+                    <WarningBar title={ this.props.warningMessage }
                                 style={ barStyle }
                     ></WarningBar>
                 </CardActions>
@@ -74,10 +61,11 @@ class WarningBarOptions extends React.Component {
                     <TextField
                         hintText="Default message"
                         floatingLabelText="Warning message"
-                        floatingLabelFixed={false}
+                        defaultValue={ this.props.warningMessage }
+                        floatingLabelFixed={ false }
                         onChange={ this.hanldeWarningMessageChange }
                     />
-                    <ColorPicker onColorChange={ this.handleColorChange }></ColorPicker>
+                    <ColorPicker color={ this.props.barColor } onColorChange={ this.handleColorChange }></ColorPicker>
                 </CardText>
             </Card>
         );
@@ -89,7 +77,8 @@ class WarningBarOptions extends React.Component {
      onColorChange: React.PropTypes.func,
      barColor: React.PropTypes.string,
      warningMessage: React.PropTypes.string,
-     enable: React.PropTypes.bool
+     enable: React.PropTypes.bool,
+     onBarEnable: React.PropTypes.func
  };
 
 WarningBarOptions.defaultProps = {

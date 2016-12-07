@@ -17,3 +17,18 @@ export function changeWarningBarMessage(message) {
         message: message
     };
 }
+
+
+export function enableWarningBar(value) {
+    return {
+        type: "ENABLE_WARNING_BAR",
+        enable: value
+    };
+}
+
+export function loadPreferences(preferences) {
+    return {
+        type: "LOAD_PREFERENCES",
+        preferences: preferences
+    };
+}

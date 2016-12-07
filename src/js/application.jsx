@@ -8,10 +8,14 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import PreferencesPage from './containers/preferencesPage.jsx';
 
 import optionsReducer from './reducer/optionsReducer';
+import { loadPreferences } from './actions/actionsType';
+import PreferencesManager from './utils/preferences.js';
 
-injectTapEventPlugin()
+injectTapEventPlugin();
 
 const store = createStore(optionsReducer);
+
+PreferencesManager.INSTANCE().loadPreferences(items => store.dispatch(loadPreferences(items)));
 
 class Application extends React.Component {
     render() {
