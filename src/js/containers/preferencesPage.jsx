@@ -7,8 +7,6 @@ import { connect } from 'react-redux';
 import WarningBarPreferences from './warningBarPreferences.jsx';
 import { savePreferences } from '../actions/actionsType'
 
-
-
 class Preferences extends React.Component {
     render() {
         return (
@@ -16,8 +14,8 @@ class Preferences extends React.Component {
                 <AppBar
                     title="Enhanced Warning Production Bar"
                     iconElementRight={ <FlatButton label="Save"
-                                onClick={e => {
-                                         e.preventDefault();
+                                onClick={ (event) => {
+                                         event.preventDefault();
                                          this.props.onSaveClick();
                                        }}/> }
                 />
@@ -31,18 +29,14 @@ Preferences.propTypes = {
     onSaveClick: React.PropTypes.func.isRequired
 };
 
-const mapStateToProps = (state, ownProps) => {
-    return {
-    }
-};
+const mapStateToProps = () => ({ });
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-    return {
+const mapDispatchToProps = (dispatch) => ({
         onSaveClick: () => {
             dispatch(savePreferences());
         }
-    }
-};
+    });
+
 
 const PreferencesPage = connect(
     mapStateToProps,

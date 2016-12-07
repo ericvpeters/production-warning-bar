@@ -247,5 +247,9 @@
             "error",
             "never"
         ]
+    },
+    "globals": {
+        "window": true,
+        "chrome": true
     }
 }

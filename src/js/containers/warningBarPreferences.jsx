@@ -2,18 +2,13 @@ import { connect } from 'react-redux';
 import WarningBarOptions from '../components/warningBarOptions.jsx';
 import { changeWarningBarColor, changeWarningBarMessage, enableWarningBar } from '../actions/actionsType'
 
-
-
-const mapStateToProps = (state, ownProps) => {
-    return {
+const mapStateToProps = (state) => ({
         barColor: state.barColor,
         warningMessage: state.barText,
         enable: state.enableWarningBar
-    }
-};
+    });
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-    return {
+const mapDispatchToProps = (dispatch) => ({
         onMessageChange: (message) => {
             dispatch(changeWarningBarMessage(message));
         },
@@ -23,8 +18,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         onBarEnable: (enable) => {
             dispatch(enableWarningBar(enable));
         }
-    }
-};
+    });
 
 const WarningBarPreferences = connect(
     mapStateToProps,

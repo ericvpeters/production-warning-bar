@@ -1,7 +1,7 @@
 import React from 'react';
 import Toggle from 'material-ui/Toggle';
 import TextField from 'material-ui/TextField';
-import {Card, CardHeader, CardTitle, CardText, CardActions} from 'material-ui/Card';
+import { Card, CardHeader, CardText, CardActions } from 'material-ui/Card';
 
 import ColorPicker from './colorPicker.jsx';
 import WarningBar from './warningBar.jsx';
@@ -17,7 +17,7 @@ class WarningBarOptions extends React.Component {
     }
 
 
-    handleToggle (event, toggle) {
+    handleToggle () {
         this.props.onBarEnable(!this.props.enable);
     }
 
@@ -88,7 +88,5 @@ WarningBarOptions.defaultProps = {
     warningMessage: 'Production Environment',
     enable: true
 };
-
-
 
 export default WarningBarOptions;

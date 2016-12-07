@@ -5,7 +5,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import EditorFormatColorFill from 'material-ui/svg-icons/editor/format-color-fill';
-import {fullWhite} from 'material-ui/styles/colors';
+import { fullWhite } from 'material-ui/styles/colors';
 
 
 class ColorPicker extends React.Component {
@@ -13,8 +13,7 @@ class ColorPicker extends React.Component {
     constructor (props) {
         super(props);
         this.state = {
-            displayColorPicker: false,
-            color: props.color ? props.color : "#a4c639",
+            displayColorPicker: false
         };
         this.handleClick = this.handleClick.bind(this);
         this.handleChangeComplete = this.handleChangeComplete.bind(this);
@@ -23,7 +22,7 @@ class ColorPicker extends React.Component {
     }
 
 
-    handleChangeComplete (newColor, event) {
+    handleChangeComplete (newColor) {
         this.setState({ color: newColor.hex });
     }
 
@@ -55,7 +54,7 @@ class ColorPicker extends React.Component {
 
         const customDialogStyle = {
             width: 'fit-content',
-            height: 'fit-content',
+            height: 'fit-content'
         };
 
         const actions = [
