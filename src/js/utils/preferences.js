@@ -21,7 +21,8 @@ class PreferencesManager {
             barColor: '#ff5063',
             barText: 'In Production Environment',
             showModal: true,
-            filter: 'none'
+            filter: 'none',
+            domainList: []
         };
         return values;
     }

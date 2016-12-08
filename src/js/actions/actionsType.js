@@ -32,3 +32,10 @@ export function loadPreferences(preferences) {
         preferences: preferences
     };
 }
+
+export function addDomain(domain) {
+    return {
+        type: "ADD_DOMAIN",
+        domain: domain
+    };
+}

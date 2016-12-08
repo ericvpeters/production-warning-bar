@@ -24,13 +24,11 @@ class Content {
     }
 
     loadWarningComponents(items) {
-        //get domain array
-        var domains = items.domains.split("\n");
         var noMatch = true;
 
         //loop through domains and see if current domain is part of list
-        for (var key in domains) {
-            let domain = domains[key].replace(' ', '');
+        for (var key in items.domainList) {
+            let domain = items.domainList[key];
             //replace * with javascript regular expression equivalent
             domain = domain.replace("*", "[A-z0-9]*");
             let regex = new RegExp("^" + domain + "$");

@@ -3,8 +3,9 @@ import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
 import { connect } from 'react-redux';
 
-
 import WarningBarPreferences from './warningBarPreferences.jsx';
+import DomainListContainer from '../containers/domainListContainer.jsx';
+
 import { savePreferences } from '../actions/actionsType'
 
 class Preferences extends React.Component {
@@ -20,6 +21,7 @@ class Preferences extends React.Component {
                                        }}/> }
                 />
                 <WarningBarPreferences />
+                <DomainListContainer />
             </div>
         );
     }

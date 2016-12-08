@@ -8,7 +8,8 @@ class Preferences {
             barColor: '#FF0000',
             barText: 'In Production Environment from Save preferences',
             showModal: true,
-            filter: 'none'
+            filter: 'none',
+            domainList: []
     }) {
         Object.assign(this, oldOptions, values);
     }
@@ -22,6 +23,25 @@ class Preferences {
 
     setEnableWarningBar(enable) {
         return new Preferences({ enableWarningBar: enable }, this);
+    }
+
+    addDomain(domain) {
+        if ( this.domainList.indexOf(domain) === -1) {
+            let domainListCopy = this.domainList.slice();
+            domainListCopy.push(domain);
+            return new Preferences({ domainList: domainListCopy }, this);
+        }
+        return new Preferences({}, this);
+    }
+
+    removeDomain(domain) {
+        let index = domainListCopy.indexOf(domain);
+        if (index >= 0) {
+            let domainListCopy = this.domainList.slice();
+            domainListCopy.splice( index, 1 );
+            return new Preferences({ domainList: domainListCopy }, this);
+        }
+        return new Preferences({}, this);
     }
 }
 
@@ -38,6 +58,8 @@ export default (options = new Preferences(), action) => {
             return options.setWarningBarColor(action.color);
         case 'ENABLE_WARNING_BAR':
             return options.setEnableWarningBar(action.enable);
+        case 'ADD_DOMAIN':
+            return options.addDomain(action.domain);
         default:
             return options;
     }
