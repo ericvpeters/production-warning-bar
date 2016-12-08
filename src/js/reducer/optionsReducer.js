@@ -7,9 +7,9 @@ class Preferences {
             domains: '*.gnu.org',
             barColor: '#FF0000',
             barText: 'In Production Environment from Save preferences',
-            showModal: true,
             filter: 'none',
-            domainList: []
+            domainList: [],
+            enableWarningModal: false
     }) {
         Object.assign(this, oldOptions, values);
     }
@@ -54,6 +54,10 @@ class Preferences {
         }
         return new Preferences({}, this);
     }
+
+    setEnableWarningModal(enable) {
+        return new Preferences({ enableWarningModal: enable }, this);
+    }
 }
 
 export default (options = new Preferences(), action) => {
@@ -75,6 +79,8 @@ export default (options = new Preferences(), action) => {
             return options.removeDomain(action.domain);
         case 'MODIFY_DOMAIN':
             return options.modifyDomain(action.newDomain, action.oldDomain);
+        case 'ENABLE_MODAL':
+            return options.setEnableWarningModal(action.enable);
         default:
             return options;
     }

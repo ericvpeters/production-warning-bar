@@ -20,7 +20,7 @@ class PreferencesManager {
             domains: '*.gnu.org',
             barColor: '#ff5063',
             barText: 'In Production Environment',
-            showModal: true,
+            enableWarningModal: true,
             filter: 'none',
             domainList: []
         };

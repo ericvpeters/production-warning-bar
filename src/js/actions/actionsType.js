@@ -53,3 +53,10 @@ export function removeDomain(domain) {
         domain: domain
     };
 }
+
+export function enableModal(enable) {
+    return {
+        type: "ENABLE_MODAL",
+        enable: enable
+    };
+}
