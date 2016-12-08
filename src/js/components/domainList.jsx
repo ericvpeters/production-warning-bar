@@ -19,7 +19,8 @@ class DomainList extends React.Component {
         super(props);
         this.state = {
             showNewDomain: false,
-            urlText: ""
+            urlText: "",
+            oldUrlText: ""
         };
 
         this.handleClose = this.handleClose.bind(this);
@@ -37,7 +38,11 @@ class DomainList extends React.Component {
 
     handleAddDomain() {
         this.setState({showNewDomain: false});
-        this.props.onAddDomain(this.state.urlText);
+        if (this.state.oldUrlText !== "") {
+            this.props.onModifyDomain(this.state.urlText, this.state.oldUrlText);
+        } else {
+            this.props.onAddDomain(this.state.urlText);
+        }
     };
 
     createListItems(items) {
@@ -51,12 +56,7 @@ class DomainList extends React.Component {
                 <MoreVertIcon color={grey400}/>
             </IconButton>
         );
-        const rightIconMenu = (
-            <IconMenu iconButtonElement={iconButtonElement}>
-                <MenuItem>Edit</MenuItem>
-                <MenuItem>Delete</MenuItem>
-            </IconMenu>
-        );
+
         items.forEach((item) => {
             listItems.push(<ListItem
                 key={ item }
@@ -65,10 +65,13 @@ class DomainList extends React.Component {
                                         <MenuItem onClick={ () => {
                                                     this.setState({ showNewDomain: true,
                                                                     urlText: item,
-                                                                    lastSelectedItem: item});
+                                                                    oldUrlText: item});
                                                     }
                                          }>Edit</MenuItem>
-                                        <MenuItem>Delete</MenuItem>
+                                        <MenuItem onClick={ () => {
+                                            this.props.onRemoveDomain(item);
+                                            }
+                                        }>Delete</MenuItem>
                                     </IconMenu>
                         }
                 primaryText={ item }
@@ -98,11 +101,11 @@ class DomainList extends React.Component {
         const listItems = this.createListItems(urls);
         return (
             <Card
-                onExpandChange={ () => { this.setState({ showNewDomain: true, urlText: "", lastSelectedItem: "" }) } }>
+                onExpandChange={ () => { this.setState({ showNewDomain: true, urlText: "", oldUrlText: "" }) } }>
                 <CardHeader
                     title="Domain List"
                     subtitle="Production environment's domain"
-                    avatar="../img/svg/application-info.svg"
+                    avatar="../img/svg/network-offline.svg"
                     actAsExpander={ true }
                     showExpandableButton={ true }
                     closeIcon={ <ContentAdd>
@@ -135,11 +138,15 @@ class DomainList extends React.Component {
 
 DomainList.propTypes = {
     onAddDomain: React.PropTypes.func.isRequired,
+    onModifyDomain: React.PropTypes.func.isRequired,
+    onRemoveDomain: React.PropTypes.func.isRequired,
     domainList: React.PropTypes.array.isRequired
 };
 
 DomainList.defaultProps = {
     onAddDomain: () => { },
+    onModifyDomain: () => { },
+    onRemoveDomain: () => { },
     domainList: []
 };
 

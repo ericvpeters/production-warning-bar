@@ -39,3 +39,17 @@ export function addDomain(domain) {
         domain: domain
     };
 }
+export function modifyDomain(newDomain, oldDomain) {
+    return {
+        type: "MODIFY_DOMAIN",
+        newDomain: newDomain,
+        oldDomain: oldDomain
+    };
+}
+
+export function removeDomain(domain) {
+    return {
+        type: "REMOVE_DOMAIN",
+        domain: domain
+    };
+}
