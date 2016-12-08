@@ -1,6 +1,6 @@
 import React from 'react';
-import { Card, CardHeader, CardText, CardActions } from 'material-ui/Card';
-import {List, ListItem} from 'material-ui/List';
+import { Card, CardHeader, CardText } from 'material-ui/Card';
+import { List, ListItem } from 'material-ui/List';
 import { grey400 } from 'material-ui/styles/colors';
 import Divider from 'material-ui/Divider';
 import IconButton from 'material-ui/IconButton';
@@ -29,25 +29,25 @@ class DomainList extends React.Component {
     }
 
     handleOpen() {
-        this.setState({showNewDomain: true});
-    };
+        this.setState({ showNewDomain: true });
+    }
 
     handleClose() {
-        this.setState({showNewDomain: false});
-    };
+        this.setState({ showNewDomain: false });
+    }
 
     handleAddDomain() {
-        this.setState({showNewDomain: false});
+        this.setState({ showNewDomain: false });
         if (this.state.oldUrlText !== "") {
             this.props.onModifyDomain(this.state.urlText, this.state.oldUrlText);
-        } else {
+        } else if (this.state.urlText) {
             this.props.onAddDomain(this.state.urlText);
         }
-    };
+    }
 
     createListItems(items) {
         var listItems = [];
-        const iconButtonElement = (
+        const iconButtonElement =
             <IconButton
                 touch={true}
                 tooltip="more"
@@ -55,7 +55,7 @@ class DomainList extends React.Component {
             >
                 <MoreVertIcon color={grey400}/>
             </IconButton>
-        );
+        ;
 
         items.forEach((item) => {
             listItems.push(<ListItem
@@ -65,7 +65,7 @@ class DomainList extends React.Component {
                                         <MenuItem onClick={ () => {
                                                     this.setState({ showNewDomain: true,
                                                                     urlText: item,
-                                                                    oldUrlText: item});
+                                                                    oldUrlText: item });
                                                     }
                                          }>Edit</MenuItem>
                                         <MenuItem onClick={ () => {
@@ -76,7 +76,7 @@ class DomainList extends React.Component {
                         }
                 primaryText={ item }
             />);
-            listItems.push(<Divider key={ `divider-${ item }`} inset={true}/>);
+            listItems.push(<Divider key={ `divider-${item}` } inset={true}/>);
         });
 
         return listItems;
@@ -101,7 +101,12 @@ class DomainList extends React.Component {
         const listItems = this.createListItems(urls);
         return (
             <Card
-                onExpandChange={ () => { this.setState({ showNewDomain: true, urlText: "", oldUrlText: "" }) } }>
+                onExpandChange={ () => {
+                    this.setState({ showNewDomain: true,
+                        urlText: "",
+                        oldUrlText: "" });
+                    }
+                }>
                 <CardHeader
                     title="Domain List"
                     subtitle="Production environment's domain"
@@ -126,7 +131,10 @@ class DomainList extends React.Component {
                         <TextField
                             id="text-field-controlled"
                             value={ this.state.urlText }
-                            onChange={ (event) => { this.setState({ urlText: event.target.value }); } }
+                            onChange={ (event) => {
+                                        this.setState({ urlText: event.target.value });
+                                    }
+                                }
                         />
                     </Dialog>
                 </CardText>

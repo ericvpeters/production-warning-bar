@@ -36,7 +36,6 @@ class Preferences {
 
     removeDomain(domain) {
         let index = this.domainList.indexOf(domain);
-        console.log("REMOVIENDO QUE ES GERUNDIO");
         if (index >= 0) {
             let domainListCopy = this.domainList.slice();
             domainListCopy.splice( index, 1 );
