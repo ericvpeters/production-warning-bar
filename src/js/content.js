@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import WarningBar from './components/warningBar.jsx';
+import WarningModal from './components/warningModal.jsx'
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import PreferencesManager from './utils/preferences.js'
 
@@ -36,7 +37,6 @@ class Content {
             //is only added once
 
             if (document.domain.search(regex) >= 0 && noMatch) {
-
                 if (items.enableWarningBar) {
                     let blankSpace = Content.createHTMLElement('<div id="production-warning-blank-space"/>');
                     document.body.insertBefore(blankSpace, document.body.firstChild);
@@ -56,6 +56,15 @@ class Content {
                             <WarningBar title={ items.barText } style={ barStyle }/>
                         </MuiThemeProvider>, productionWarningBar);
                     document.getElementById('production-warning-blank-space').setAttribute('style', `height: ${productionWarningBar.clientHeight}px`);
+                }
+
+                if (items.enableWarningModal) {
+                    let warningModalElement = Content.createHTMLElement('<div id="production-warning-modal"/>');
+                    document.body.appendChild(warningModalElement);
+                    ReactDOM.render(
+                        <MuiThemeProvider>
+                            <WarningModal />
+                        </MuiThemeProvider>, warningModalElement);
                 }
                 //make sure only one bar is made
                 noMatch = false;
