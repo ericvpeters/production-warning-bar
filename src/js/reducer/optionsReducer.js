@@ -58,6 +58,10 @@ class Preferences {
     setEnableWarningModal(enable) {
         return new Preferences({ enableWarningModal: enable }, this);
     }
+
+    setFilter(filter) {
+        return new Preferences({ filter: filter }, this);
+    }
 }
 
 export default (options = new Preferences(), action) => {
@@ -81,6 +85,8 @@ export default (options = new Preferences(), action) => {
             return options.modifyDomain(action.newDomain, action.oldDomain);
         case 'ENABLE_MODAL':
             return options.setEnableWarningModal(action.enable);
+        case 'SET_FILTER':
+            return options.setFilter(action.filter);
         default:
             return options;
     }

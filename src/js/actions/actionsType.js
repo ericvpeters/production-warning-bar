@@ -60,3 +60,10 @@ export function enableModal(enable) {
         enable: enable
     };
 }
+
+export function setFilter(filter) {
+    return {
+        type: "SET_FILTER",
+        filter: filter
+    };
+}

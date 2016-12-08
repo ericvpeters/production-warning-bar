@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import WarningBarPreferences from './warningBarPreferences.jsx';
 import DomainListContainer from '../containers/domainListContainer.jsx';
 import ModalPreferences from '../containers/modalPreferences.jsx';
+import WebFilterPreferences from '../containers/webFilterPreferences.jsx';
 
 import { savePreferences } from '../actions/actionsType'
 
@@ -23,6 +24,7 @@ class Preferences extends React.Component {
                 />
                 <WarningBarPreferences />
                 <ModalPreferences />
+                <WebFilterPreferences />
                 <DomainListContainer />
             </div>
         );

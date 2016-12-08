@@ -48,7 +48,8 @@ class Content {
 
                     let productionWarningBar = document.getElementById('production-warning-all');
                     const barStyle = {
-                        'backgroundColor': items.barColor
+                        'backgroundColor': items.barColor,
+                        'filter': 'none !important'
                     };
 
                     ReactDOM.render(
@@ -59,12 +60,16 @@ class Content {
                 }
 
                 if (items.enableWarningModal) {
-                    let warningModalElement = Content.createHTMLElement('<div id="production-warning-modal"/>');
+                    let warningModalElement = Content.createHTMLElement('<div id="production-warning-modal" />');
                     document.body.appendChild(warningModalElement);
                     ReactDOM.render(
                         <MuiThemeProvider>
                             <WarningModal />
                         </MuiThemeProvider>, warningModalElement);
+                }
+
+                if (items.filter !== "none") {
+                    document.getElementsByTagName('body')[0].style.filter = items.filter;
                 }
                 //make sure only one bar is made
                 noMatch = false;
