@@ -22,13 +22,18 @@ class PreferencesManager {
             barText: 'In Production Environment',
             enableWarningModal: true,
             filter: 'none',
-            domainList: []
+            domainList: [],
+            environments: []
         };
         return values;
     }
 
     loadPreferences(callback) {
        chrome.storage.sync.get( this.defaultValues(), callback);
+    }
+    
+    saveEnvironments(environments, callback = function () {}) {
+        chrome.storage.sync.set( { environments: environments }, callback);
     }
 
     savePreferences(properties, callback = function () {}) {

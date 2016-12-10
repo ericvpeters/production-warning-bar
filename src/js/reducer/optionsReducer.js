@@ -9,7 +9,8 @@ class Preferences {
             barText: 'In Production Environment from Save preferences',
             filter: 'none',
             domainList: [],
-            enableWarningModal: false
+            enableWarningModal: false,
+            environments: []
     }) {
         Object.assign(this, oldOptions, values);
     }
@@ -30,6 +31,25 @@ class Preferences {
             let domainListCopy = this.domainList.slice();
             domainListCopy.push(domain);
             return new Preferences({ domainList: domainListCopy }, this);
+        }
+        return new Preferences({}, this);
+    }
+
+    addEnvironment(environment) {
+        if ( this.environments.indexOf(environment) === -1) {
+            let environmentsCopy = this.environments.slice();
+            environmentsCopy.push(environment);
+            return new Preferences({ environments: environmentsCopy }, this);
+        }
+        return new Preferences({}, this);
+    }
+
+    removeEnvironment(environment) {
+        let index = this.environments.indexOf(environment);
+        if (index >= 0) {
+            let environmentCopy = this.environments.slice();
+            environmentCopy.splice( index, 1 );
+            return new Preferences({ environments: environmentCopy }, this);
         }
         return new Preferences({}, this);
     }
@@ -87,6 +107,12 @@ export default (options = new Preferences(), action) => {
             return options.setEnableWarningModal(action.enable);
         case 'SET_FILTER':
             return options.setFilter(action.filter);
+        case 'ADD_ENVIRONMENT':
+            let updatePreferences = options.addEnvironment(action.environment);
+            PreferencesManager.INSTANCE().saveEnvironments(updatePreferences.environments)
+            return updatePreferences;
+        case 'REMOVE_ENVIRONMENT':
+            return options.addEnvironment(action.environment);
         default:
             return options;
     }

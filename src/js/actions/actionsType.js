@@ -39,6 +39,7 @@ export function addDomain(domain) {
         domain: domain
     };
 }
+
 export function modifyDomain(newDomain, oldDomain) {
     return {
         type: "MODIFY_DOMAIN",
@@ -65,5 +66,19 @@ export function setFilter(filter) {
     return {
         type: "SET_FILTER",
         filter: filter
+    };
+}
+
+export function addEnvironment(environment) {
+    return {
+        type: "ADD_ENVIRONMENT",
+        environment: environment
+    };
+}
+
+export function removeEnvironment(environment) {
+    return {
+        type: "REMOVE_ENVIRONMENT",
+        environment: environment
     };
 }
