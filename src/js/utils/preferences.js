@@ -15,15 +15,20 @@ class PreferencesManager {
 
     defaultValues () {
         const values = {
+            environments: ['default']
+        };
+        return values;
+    }
+
+    defaultEnvironmentValues() {
+        const values = {
             enableWarningBar: false,
             barPosition: 'top',
-            domains: '*.gnu.org',
             barColor: '#ff5063',
             barText: 'In Production Environment',
             enableWarningModal: true,
             filter: 'none',
-            domainList: [],
-            environments: []
+            domainList: []
         };
         return values;
     }
@@ -31,9 +36,23 @@ class PreferencesManager {
     loadPreferences(callback) {
        chrome.storage.sync.get( this.defaultValues(), callback);
     }
+
+    loadEnvironment(environment, callback = (items) => {}) {
+        const dataToRead = { [environment] : this.defaultEnvironmentValues() };
+        chrome.storage.sync.get( environment, callback);
+    }
+
+    loadEnvironmentPreferences(environment, callback = (items) => {}) {
+        const dataToRead = { [environment] : this.defaultEnvironmentValues() };
+        chrome.storage.sync.get( dataToRead[environment], callback);
+    }
     
     saveEnvironments(environments, callback = function () {}) {
         chrome.storage.sync.set( { environments: environments }, callback);
+    }
+
+    removeEnvironment(environment, callback = () => {}) {
+        chrome.storage.sync.remove(environment, callback);
     }
 
     savePreferences(properties, callback = function () {}) {

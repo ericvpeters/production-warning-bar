@@ -82,3 +82,24 @@ export function removeEnvironment(environment) {
         environment: environment
     };
 }
+
+export function changeEnvironment(environment) {
+    return {
+        type: "CHANGE_ENVIRONMENT",
+        name: environment
+    };
+}
+
+export function loadEnvironmentPreferences(environment) {
+    return {
+        type: "LOAD_ENVIRONMENT_PREFERENCES",
+        environment: environment
+    };
+}
+
+export function loadEnvironment(properties) {
+    return {
+        type: "LOAD_ENVIRONMENT",
+        preferences: properties
+    };
+}

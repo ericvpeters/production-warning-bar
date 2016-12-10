@@ -15,19 +15,34 @@ class Content {
     constructor() {
         if(!instance){
             instance = this;
+            this.find = false;
         }
         return instance;
     }
 
     execute() {
         //Get the stored values
-        PreferencesManager.INSTANCE().loadPreferences(this.loadWarningComponents);
+        PreferencesManager.INSTANCE().loadPreferences((items) => {
+            console.log("environment list" + items);
+            for (let key in items.environments) {
+                var environment = items.environments[key];
+                if (!this.found) {
+                    PreferencesManager.INSTANCE().loadEnvironment(environment, (items) =>
+                    {
+                        this.loadWarningComponents(items);
+                    });
+                }
+            }
+        });
     }
 
-    loadWarningComponents(items) {
+
+    loadWarningComponents(value) {
+        let items = value[Object.keys(value)[0]];
         var noMatch = true;
 
         //loop through domains and see if current domain is part of list
+        
         for (var key in items.domainList) {
             let domain = items.domainList[key];
             //replace * with javascript regular expression equivalent
@@ -74,6 +89,7 @@ class Content {
                 //make sure only one bar is made
                 noMatch = false;
             }
+            this.found = !noMatch;
         }
     }
 

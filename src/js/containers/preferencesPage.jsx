@@ -20,7 +20,7 @@ import DomainListContainer from '../containers/domainListContainer.jsx';
 import ModalPreferences from '../containers/modalPreferences.jsx';
 import WebFilterPreferences from '../containers/webFilterPreferences.jsx';
 
-import { savePreferences, addEnvironment, removeEnvironment } from '../actions/actionsType'
+import { savePreferences, addEnvironment, removeEnvironment, changeEnvironment } from '../actions/actionsType'
 
 class Preferences extends React.Component {
 
@@ -60,6 +60,7 @@ class Preferences extends React.Component {
                                     </IconMenu>
                         }
                 primaryText={ item }
+                onClick={ () => { this.props.onChangeEnvironment(item); } }
             />);
             listItems.push(<Divider key={ `divider-${item}` } inset={true}/>);
         });
@@ -92,7 +93,7 @@ class Preferences extends React.Component {
             <div>
                 <StickyContainer>
                     <Sticky stickyStyle={ stickyStyle }>
-                        <AppBar title="Enhanced Warning Production Bar"
+                        <AppBar title={ `Enhanced Warning Production Bar - ${this.props.currentEnvironment}` }
                                 iconElementRight={ <FlatButton label="Save"
                                         onClick={ (event) => {
                                                  event.preventDefault();
@@ -123,7 +124,6 @@ class Preferences extends React.Component {
                                 </IconButton>
                             }
                     />
-                    <MenuItem>Default</MenuItem>
                     { listItems }
                     <MenuItem onClick={ () => { this.setState ( { showNewEnvironmentDialog: true }); } }>New context</MenuItem>
                     <Dialog
@@ -150,11 +150,13 @@ class Preferences extends React.Component {
 Preferences.propTypes = {
     onSaveClick: React.PropTypes.func.isRequired,
     onNewEnvironment: React.PropTypes.func.isRequired,
-    environments: React.PropTypes.array.isRequired
+    environments: React.PropTypes.array.isRequired,
+    currentEnvironment: React.PropTypes.string.isRequired
 };
 
 const mapStateToProps = (state) => ({
-    environments: state.environments
+    environments: state.environments,
+    currentEnvironment: state.currentEnvironment
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -166,6 +168,9 @@ const mapDispatchToProps = (dispatch) => ({
         },
         onDeleteEnvironment: (name) => {
             dispatch(removeEnvironment(name));
+        },
+        onChangeEnvironment: (name) => {
+            dispatch(changeEnvironment(name));
         }
     });
 

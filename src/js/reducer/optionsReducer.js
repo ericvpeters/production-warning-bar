@@ -1,16 +1,18 @@
 import PreferencesManager from '../utils/preferences';
+import { dispatch } from 'redux';
 
 class Preferences {
     constructor(values, oldOptions = {
             enableWarningBar: false,
             barPosition: 'top',
-            domains: '*.gnu.org',
+            domains: '*.gnu.org', //TODO: remove it
             barColor: '#FF0000',
             barText: 'In Production Environment from Save preferences',
             filter: 'none',
             domainList: [],
             enableWarningModal: false,
-            environments: []
+            environments: ['default'],
+            currentEnvironment: ""
     }) {
         Object.assign(this, oldOptions, values);
     }
@@ -82,17 +84,29 @@ class Preferences {
     setFilter(filter) {
         return new Preferences({ filter: filter }, this);
     }
+
+    setEnvironment(environments) {
+        return new Preferences({ environments: environments.slice() }, this);
+    }
+
+    setCurrentEnvironment(environment) {
+        return new Preferences({currentEnvironment: environment}, this);
+    }
 }
 
 export default (options = new Preferences(), action) => {
     let updatePreferences;
     switch (action.type) {
         case 'LOAD_PREFERENCES':
-            return new Preferences(action.preferences);
+            return new Preferences().setCurrentEnvironment(action.preferences.environments[0])
+                .setEnvironment(action.preferences.environments);
         case 'CHANGE_WARNING_BAR_MESSAGE':
             return options.setWarningBarMessage(action.message);
         case 'SAVE_PREFERENCES':
-            PreferencesManager.INSTANCE().savePreferences(new Preferences({}, options));
+            let preferencesCopy = new Preferences({}, options);
+            delete preferencesCopy.currentEnvironment;
+            delete preferencesCopy.environments;
+            PreferencesManager.INSTANCE().savePreferences({ [options.currentEnvironment]: preferencesCopy });
             return options;
         case 'CHANGE_WARNING_BAR_COLOR':
             return options.setWarningBarColor(action.color);
@@ -110,12 +124,17 @@ export default (options = new Preferences(), action) => {
             return options.setFilter(action.filter);
         case 'ADD_ENVIRONMENT':
             updatePreferences = options.addEnvironment(action.environment);
-            PreferencesManager.INSTANCE().saveEnvironments(updatePreferences.environments)
+            PreferencesManager.INSTANCE().saveEnvironments(updatePreferences.environments);
             return updatePreferences;
         case 'REMOVE_ENVIRONMENT':
             updatePreferences = options.removeEnvironment(action.environment);
-            PreferencesManager.INSTANCE().saveEnvironments(updatePreferences.environments)
+            PreferencesManager.INSTANCE().saveEnvironments(updatePreferences.environments);
+            PreferencesManager.INSTANCE().removeEnvironment(action.environment);
             return updatePreferences;
+        case 'LOAD_ENVIRONMENT_PREFERENCES':
+            return new Preferences(action.environment[options.currentEnvironment], options);
+        case 'CHANGE_ENVIRONMENT':
+            return options.setCurrentEnvironment(action.name);
         default:
             return options;
     }
