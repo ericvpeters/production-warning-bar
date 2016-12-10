@@ -2,6 +2,7 @@ import React from 'react';
 import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
 import { connect } from 'react-redux';
+import { StickyContainer, Sticky } from 'react-sticky';
 
 import WarningBarPreferences from './warningBarPreferences.jsx';
 import DomainListContainer from '../containers/domainListContainer.jsx';
@@ -12,21 +13,23 @@ import { savePreferences } from '../actions/actionsType'
 
 class Preferences extends React.Component {
     render() {
+        const stickyStyle = { zIndex: 2147483647 }
         return (
-            <div>
-                <AppBar
-                    title="Enhanced Warning Production Bar"
-                    iconElementRight={ <FlatButton label="Save"
-                                onClick={ (event) => {
-                                         event.preventDefault();
-                                         this.props.onSaveClick();
-                                       }}/> }
-                />
+            <StickyContainer>
+                <Sticky stickyStyle={ stickyStyle }>
+                    <AppBar title="Enhanced Warning Production Bar"
+                        iconElementRight={ <FlatButton label="Save"
+                                    onClick={ (event) => {
+                                             event.preventDefault();
+                                             this.props.onSaveClick();
+                                           }}/> }
+                    />
+                </Sticky>
                 <WarningBarPreferences />
                 <ModalPreferences />
                 <WebFilterPreferences />
                 <DomainListContainer />
-            </div>
+            </StickyContainer>
         );
     }
 }

@@ -4,43 +4,7 @@
         <title>Production Warning Bar</title>
     </head>
     <body>
-        <div id="example">
-            <h3>Production Warning Bar</h3>
-            <hr>
-            <label>
-                Bar Text:
-                <input id="barText" style="width:300px;" />
-            </label>
-            <label>
-                Bar Color:
-                <input id="barColor" />
-            </label>
-            <label>
-                Bar Position:<br />
-                <select style="margin-top:4px;" id="barPosition">
-                    <option value="top">Top</option>
-                    <option value="bottom">Bottom</option>
-                </select>
-            </label>
-            <label>
-                Apply filter:<br />
-                <select style="margin-top:4px;" id="filter">
-                    <option value="none">None</option>
-                    <option value="grayscale(1)">Grayscale</option>
-                    <option value="sepia(1)">Sepia</option>
-                    <option value="invert(1)">Invert</option>
-                </select>
-            </label>
-            <label>
-                Blocking modal: <input type="checkbox" id="showModal" value="true"/>
-            </label>
-            <label>
-                Domains:<br />
-                <textarea id="domains" style="width:300px; height: 150px;" placeholder="*.example.com"></textarea>
-            </label>
-            <br />
-            <button id="save">Save</button>
-
+        <div id="app" style="min-width: 680px">
         </div>
         <script src='../build/js/application-bundle.js'></script>
     </body>
