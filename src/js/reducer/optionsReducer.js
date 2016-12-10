@@ -85,6 +85,7 @@ class Preferences {
 }
 
 export default (options = new Preferences(), action) => {
+    let updatePreferences;
     switch (action.type) {
         case 'LOAD_PREFERENCES':
             return new Preferences(action.preferences);
@@ -108,11 +109,13 @@ export default (options = new Preferences(), action) => {
         case 'SET_FILTER':
             return options.setFilter(action.filter);
         case 'ADD_ENVIRONMENT':
-            let updatePreferences = options.addEnvironment(action.environment);
+            updatePreferences = options.addEnvironment(action.environment);
             PreferencesManager.INSTANCE().saveEnvironments(updatePreferences.environments)
             return updatePreferences;
         case 'REMOVE_ENVIRONMENT':
-            return options.addEnvironment(action.environment);
+            updatePreferences = options.removeEnvironment(action.environment);
+            PreferencesManager.INSTANCE().saveEnvironments(updatePreferences.environments)
+            return updatePreferences;
         default:
             return options;
     }

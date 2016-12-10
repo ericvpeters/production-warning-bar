@@ -54,7 +54,8 @@ class Preferences extends React.Component {
                                                     }
                                          }>Edit</MenuItem>
                                         <MenuItem onClick={ () => {
-                                            }
+                                                    this.props.onDeleteEnvironment(item);
+                                                }
                                         }>Delete</MenuItem>
                                     </IconMenu>
                         }
@@ -162,6 +163,9 @@ const mapDispatchToProps = (dispatch) => ({
         },
         onNewEnvironment: (name) => {
             dispatch(addEnvironment(name));
+        },
+        onDeleteEnvironment: (name) => {
+            dispatch(removeEnvironment(name));
         }
     });
 
