@@ -61,7 +61,10 @@ class Preferences extends React.Component {
                                     </IconMenu>
                         }
                 primaryText={ item }
-                onClick={ () => { this.props.onChangeEnvironment(item); } }
+                onClick={ () => {
+                            this.props.onChangeEnvironment(item);
+                        }
+                    }
             />);
             listItems.push(<Divider key={ `divider-${item}` } inset={true}/>);
         });
@@ -98,13 +101,15 @@ class Preferences extends React.Component {
                     <Sticky stickyStyle={ stickyStyle }>
                         <AppBar title={ `Enhanced Warning Production Bar - ${this.props.currentEnvironment}` }
                                 iconElementRight={ <FlatButton label="Save"
-                                        onClick={ (event) => {
-                                                 event.preventDefault();
-                                                 this.props.onSaveClick();
-                                               }}/> }
+                                            onClick={ (event) => {
+                                                        event.preventDefault();
+                                                        this.props.onSaveClick();
+                                                        }
+                                                    } />
+                                            }
                                 iconElementLeft={ <IconButton label="Menu"
                                         onClick={ () => {
-                                                 this.setState({ showDrawer: true});
+                                                 this.setState({ showDrawer: true });
                                                }}>
                                                 <NavigationMenu/>
                                                </IconButton> }
@@ -129,7 +134,10 @@ class Preferences extends React.Component {
                     />
                     { listItems }
                     <MenuItem rightIcon={ <ContentAdd/> }
-                        onClick={ () => { this.setState ( { showNewEnvironmentDialog: true }); } }>New context</MenuItem>
+                        onClick={ () => {
+                                            this.setState({ showNewEnvironmentDialog: true });
+                                        }
+                                }>New context</MenuItem>
                     <Dialog
                         title="Add new environment"
                         actions={actions}

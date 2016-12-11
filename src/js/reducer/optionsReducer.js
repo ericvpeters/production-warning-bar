@@ -1,11 +1,9 @@
 import PreferencesManager from '../utils/preferences';
-import { dispatch } from 'redux';
 
 class Preferences {
     constructor(values, oldOptions = {
             enableWarningBar: false,
             barPosition: 'top',
-            domains: '*.gnu.org', //TODO: remove it
             barColor: '#FF0000',
             barText: 'In Production Environment from Save preferences',
             filter: 'none',
@@ -90,24 +88,25 @@ class Preferences {
     }
 
     setCurrentEnvironment(environment) {
-        return new Preferences({currentEnvironment: environment}, this);
+        return new Preferences({ currentEnvironment: environment }, this);
     }
 }
 
 export default (options = new Preferences(), action) => {
-    let updatePreferences;
+    let updatePreferences = {};
     switch (action.type) {
         case 'LOAD_PREFERENCES':
-            return new Preferences().setCurrentEnvironment(action.preferences.environments[0])
-                .setEnvironment(action.preferences.environments);
+            return new Preferences().setCurrentEnvironment(action.preferences.environments[0]).
+                setEnvironment(action.preferences.environments);
         case 'CHANGE_WARNING_BAR_MESSAGE':
             return options.setWarningBarMessage(action.message);
-        case 'SAVE_PREFERENCES':
+        case 'SAVE_PREFERENCES': {
             let preferencesCopy = new Preferences({}, options);
-            delete preferencesCopy.currentEnvironment;
-            delete preferencesCopy.environments;
+            Reflect.deleteProperty(preferencesCopy, "currentEnvironment");
+            Reflect.deleteProperty(preferencesCopy, "environments");
             PreferencesManager.INSTANCE().savePreferences({ [options.currentEnvironment]: preferencesCopy });
             return options;
+        }
         case 'CHANGE_WARNING_BAR_COLOR':
             return options.setWarningBarColor(action.color);
         case 'ENABLE_WARNING_BAR':

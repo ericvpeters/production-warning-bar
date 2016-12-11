@@ -37,16 +37,15 @@ class PreferencesManager {
        chrome.storage.sync.get( this.defaultValues(), callback);
     }
 
-    loadEnvironment(environment, callback = (items) => {}) {
-        const dataToRead = { [environment] : this.defaultEnvironmentValues() };
+    loadEnvironment(environment, callback = () => {}) {
         chrome.storage.sync.get( environment, callback);
     }
 
-    loadEnvironmentPreferences(environment, callback = (items) => {}) {
-        const dataToRead = { [environment] : this.defaultEnvironmentValues() };
+    loadEnvironmentPreferences(environment, callback = () => {}) {
+        const dataToRead = { [environment]: this.defaultEnvironmentValues() };
         chrome.storage.sync.get( dataToRead[environment], callback);
     }
-    
+
     saveEnvironments(environments, callback = function () {}) {
         chrome.storage.sync.set( { environments: environments }, callback);
     }
