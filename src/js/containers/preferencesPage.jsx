@@ -14,6 +14,7 @@ import Divider from 'material-ui/Divider';
 import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 import IconMenu from 'material-ui/IconMenu';
+import ContentAdd from 'material-ui/svg-icons/content/add';
 
 import WarningBarPreferences from './warningBarPreferences.jsx';
 import DomainListContainer from '../containers/domainListContainer.jsx';
@@ -49,7 +50,7 @@ class Preferences extends React.Component {
             listItems.push(<MenuItem
                 key={ item }
                 rightIconButton={ <IconMenu iconButtonElement={iconButtonElement}>
-                                        <MenuItem onClick={ () => {
+                                        <MenuItem disabled={ true } onClick={ () => {
 
                                                     }
                                          }>Edit</MenuItem>
@@ -74,15 +75,17 @@ class Preferences extends React.Component {
             <FlatButton
                 label="Cancel"
                 primary={true}
-                onTouchTap={this.handleClose}
+                onTouchTap={ () => {
+                        this.setState({ showNewEnvironmentDialog: false });
+                    } }
             />,
             <FlatButton
                 label="Submit"
                 primary={ true }
                 disabled={ this.state.newEnvironment.trim().length === 0 }
                 onTouchTap={() => {
-                    this.props.onNewEnvironment( this.state.newEnvironment );
-                     this.setState({ showNewEnvironmentDialog: false });
+                        this.props.onNewEnvironment( this.state.newEnvironment );
+                        this.setState({ showNewEnvironmentDialog: false });
                      }
                  }
             />
@@ -125,7 +128,8 @@ class Preferences extends React.Component {
                             }
                     />
                     { listItems }
-                    <MenuItem onClick={ () => { this.setState ( { showNewEnvironmentDialog: true }); } }>New context</MenuItem>
+                    <MenuItem rightIcon={ <ContentAdd/> }
+                        onClick={ () => { this.setState ( { showNewEnvironmentDialog: true }); } }>New context</MenuItem>
                     <Dialog
                         title="Add new environment"
                         actions={actions}
