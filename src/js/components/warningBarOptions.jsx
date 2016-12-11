@@ -54,6 +54,7 @@ class WarningBarOptions extends React.Component {
                 </CardText>
                 <CardActions expandable= { true }>
                     <WarningBar title={ this.props.warningMessage }
+                                disableClose= { true }
                                 style={ barStyle }
                     ></WarningBar>
                 </CardActions>

@@ -69,7 +69,9 @@ class Content {
 
                     ReactDOM.render(
                         <MuiThemeProvider>
-                            <WarningBar title={ items.barText } style={ barStyle }/>
+                            <WarningBar title={ items.barText } style={ barStyle } onClose={() => {
+                                document.getElementById('production-warning-blank-space').setAttribute('style', `height: 0px`);
+                            }}/>
                         </MuiThemeProvider>, productionWarningBar);
                     document.getElementById('production-warning-blank-space').setAttribute('style', `height: ${productionWarningBar.clientHeight}px`);
                 }
