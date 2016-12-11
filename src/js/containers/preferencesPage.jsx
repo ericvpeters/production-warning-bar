@@ -56,15 +56,19 @@ class Preferences extends React.Component {
                                          }>Edit</MenuItem>
                                         <MenuItem onClick={ () => {
                                                     this.props.onDeleteEnvironment(item);
+                                                    }
                                                 }
-                                        }>Delete</MenuItem>
+                                                disabled={ this.props.currentEnvironment === item}
+                                        >Delete</MenuItem>
                                     </IconMenu>
                         }
-                primaryText={ item }
-                onClick={ () => {
+                primaryText={ <div  onClick={ () => {
                             this.props.onChangeEnvironment(item);
+                            this.setState({ showDrawer: false });
                         }
+                    }>{item}</div>
                     }
+
             />);
             listItems.push(<Divider key={ `divider-${item}` } inset={true}/>);
         });
@@ -135,7 +139,8 @@ class Preferences extends React.Component {
                     { listItems }
                     <MenuItem rightIcon={ <ContentAdd/> }
                         onClick={ () => {
-                                            this.setState({ showNewEnvironmentDialog: true });
+                                            this.setState({ showNewEnvironmentDialog: true,
+                                                            showDrawer: false });
                                         }
                                 }>New context</MenuItem>
                     <Dialog

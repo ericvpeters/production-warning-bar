@@ -62,7 +62,6 @@ class WarningBarOptions extends React.Component {
                     <TextField
                         hintText="Default message"
                         floatingLabelText="Warning message"
-                        defaultValue={ this.props.warningMessage }
                         value={ this.props.warningMessage }
                         floatingLabelFixed={ false }
                         onChange={ this.hanldeWarningMessageChange }
