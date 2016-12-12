@@ -11,9 +11,21 @@ import optionsReducer from './reducer/optionsReducer';
 import { loadPreferences } from './actions/actionsType';
 import PreferencesManager from './utils/preferences.js';
 import { loadEnvironmentPreferences } from './actions/actionsType';
+import { IntlProvider, addLocaleData } from 'react-intl';
+import es from 'react-intl/locale-data/es';
+import en from 'react-intl/locale-data/en';
 
+import esTranslation from './i18n/es.json'
+import enTranslation from './i18n/en.json'
+
+addLocaleData(es, en);
 
 injectTapEventPlugin();
+
+const translations = {
+    es: esTranslation,
+    en: enTranslation
+};
 
 const store = createStore(optionsReducer);
 let currentEnvironment = "";
@@ -35,7 +47,9 @@ class Application extends React.Component {
         return (
             <MuiThemeProvider>
                 <Provider store={ store }>
-                    <PreferencesPage></PreferencesPage>
+                    <IntlProvider locale = { navigator.language} messages={ translations[navigator.language] }>
+                        <PreferencesPage></PreferencesPage>
+                    </IntlProvider>
                 </Provider>
             </MuiThemeProvider>);
     }

@@ -20,6 +20,7 @@ import WarningBarPreferences from './warningBarPreferences.jsx';
 import DomainListContainer from '../containers/domainListContainer.jsx';
 import ModalPreferences from '../containers/modalPreferences.jsx';
 import WebFilterPreferences from '../containers/webFilterPreferences.jsx';
+import { FormattedMessage, defineMessages } from 'react-intl';
 
 import { savePreferences, addEnvironment, removeEnvironment, changeEnvironment } from '../actions/actionsType'
 
@@ -103,7 +104,14 @@ class Preferences extends React.Component {
             <div>
                 <StickyContainer>
                     <Sticky stickyStyle={ stickyStyle }>
-                        <AppBar title={ `Enhanced Warning Production Bar - ${this.props.currentEnvironment}` }
+                        <AppBar title={   <FormattedMessage
+                                        id="preferencesPage.title"
+                                        defaultMessage="Enhanced Warning Production Bar Preferences - {name}"
+                                        description="This translation is created inline of the code"
+                                        values={ {name: this.props.currentEnvironment} }
+                                      />
+                                  }
+
                                 iconElementRight={ <FlatButton label="Save"
                                             onClick={ (event) => {
                                                         event.preventDefault();
