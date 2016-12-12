@@ -26,14 +26,15 @@
     "enzyme": "~2.6.0",
     "react-addons-test-utils": "~15.4.1",
     "enzyme-to-json": "~1.4.4",
-    "babel-plugin-react-intl": "~2.2.0"
+    "babel-plugin-react-intl": "~2.2.0",
+    "eslint-plugin-json": "~1.2.0"
   },
   "scripts": {
     "test": "jest test/**/*.js",
     "eslint": "./node_modules/.bin/eslint src/js/**/*.js*",
     "watch": "./script/watch.sh",
     "build": "./script/build.sh",
-    "package": "npm run jshint && npm test && npm run build && zip package-$(cat package.json | jq -r .version).zip -r build manifest.json"
+    "package": "npm run eslint && npm test && npm run build && zip package-$(cat package.json | jq -r .version).zip -r build html css img manifest.json"
   },
   "repository": {
     "type": "git",

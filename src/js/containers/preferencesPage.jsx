@@ -20,7 +20,7 @@ import WarningBarPreferences from './warningBarPreferences.jsx';
 import DomainListContainer from '../containers/domainListContainer.jsx';
 import ModalPreferences from '../containers/modalPreferences.jsx';
 import WebFilterPreferences from '../containers/webFilterPreferences.jsx';
-import { FormattedMessage, defineMessages } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 
 import { savePreferences, addEnvironment, removeEnvironment, changeEnvironment } from '../actions/actionsType'
 
@@ -63,7 +63,7 @@ class Preferences extends React.Component {
                                         >Delete</MenuItem>
                                     </IconMenu>
                         }
-                primaryText={ <div  onClick={ () => {
+                primaryText={ <div onClick={ () => {
                             this.props.onChangeEnvironment(item);
                             this.setState({ showDrawer: false });
                         }
@@ -104,11 +104,11 @@ class Preferences extends React.Component {
             <div>
                 <StickyContainer>
                     <Sticky stickyStyle={ stickyStyle }>
-                        <AppBar title={   <FormattedMessage
+                        <AppBar title={ <FormattedMessage
                                         id="preferencesPage.title"
-                                        defaultMessage="Enhanced Warning Production Bar Preferences - {name}"
+                                        defaultMessage="Enhanced Production Warning Bar Preferences - {name}"
                                         description="This translation is created inline of the code"
-                                        values={ {name: this.props.currentEnvironment} }
+                                        values={ { name: this.props.currentEnvironment } }
                                       />
                                   }
 
