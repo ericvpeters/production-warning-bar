@@ -112,7 +112,13 @@ class Preferences extends React.Component {
                                       />
                                   }
 
-                                iconElementRight={ <FlatButton label="Save"
+                                iconElementRight={ <FlatButton label={ <FormattedMessage
+                                        id="preferencesPage.save"
+                                        defaultMessage="Save"
+                                        description="Save environment's preferences"
+                                        values={ { name: this.props.currentEnvironment } }
+                                      />
+                                  }
                                             onClick={ (event) => {
                                                         event.preventDefault();
                                                         this.props.onSaveClick();
