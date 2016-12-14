@@ -34,7 +34,8 @@
     "eslint": "./node_modules/.bin/eslint src/js/**/*.js*",
     "watch": "./script/watch.sh",
     "build": "./script/build.sh",
-    "package": "npm run eslint && npm test && npm run build && zip package-$(cat package.json | jq -r .version).zip -r build html css img manifest.json"
+    "production": "./script/production.sh",
+    "package": "npm run eslint && npm test && npm run production && zip package-$(cat package.json | jq -r .version).zip -r build html css img manifest.json"
   },
   "repository": {
     "type": "git",
