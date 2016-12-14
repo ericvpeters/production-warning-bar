@@ -23,7 +23,6 @@ class Content {
     execute() {
         //Get the stored values
         PreferencesManager.INSTANCE().loadPreferences((items) => {
-            console.log("environment list" + items);
             for (let key in items.environments) {
                 var environment = items.environments[key];
                 if (!this.found) {

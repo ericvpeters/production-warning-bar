@@ -11,6 +11,12 @@ If you want to installs this plugin from sources, [npm](https://www.npmjs.com/) 
 npm run build
 ```
 
+or for a production environment/release:
+
+```bash
+npm run production
+```
+
 After building it, open Chrome and go to [extensions](chrome://extensions/) to enable the developer mode. See [Chrome's faq](https://developer.chrome.com/extensions/faq#faq-dev-01) for further information.
 Then press "Load Unpacked Extension" button and select the extension (the directory that contains _manifest.json_).
 
