@@ -2,14 +2,14 @@
     "name": "Production Warning Bar",
     "version": "0.1.1",
     "manifest_version": 2,
-    "options_page": "options.html",
+    "options_page": "html/options.html",
     "permissions": [
         "storage", "tabs"
     ],
     "content_scripts": [
         {
             "matches": ["http://*/*", "https://*/*"],
-            "js": ["content.js"],
+            "js": ["build/js/content.js"],
             "css": ["css/modal.css"]
         }
     ],
@@ -18,11 +18,12 @@
         "19": "img/19/factory.png",
         "38": "img/38/factory.png"
       },
-      "default_popup": "options.html"
+      "default_popup": "html/options.html"
     },
     "icons": {
           "16": "img/16/factory.png",
           "48": "img/48/factory.png",
           "128": "img/128/factory.png" 
-        }
+        },
+  "web_accessible_resources": ["img/svg/*.svg"]
 }
