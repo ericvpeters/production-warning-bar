@@ -10,7 +10,8 @@ class Preferences {
             domainList: [],
             enableWarningModal: false,
             environments: ['default'],
-            currentEnvironment: ""
+            currentEnvironment: "",
+            easterEgg: false
     }) {
         Object.assign(this, oldOptions, values);
     }
@@ -90,6 +91,10 @@ class Preferences {
     setCurrentEnvironment(environment) {
         return new Preferences({ currentEnvironment: environment }, this);
     }
+
+    toggleEasterEgg() {
+        return new Preferences({ easterEgg: !this.easterEgg }, this);
+    }
 }
 
 export default (options = new Preferences(), action) => {
@@ -134,6 +139,8 @@ export default (options = new Preferences(), action) => {
             return new Preferences(action.environment[options.currentEnvironment], options);
         case 'CHANGE_ENVIRONMENT':
             return options.setCurrentEnvironment(action.name);
+        case 'TOGGLE_EASTER_EGG':
+            return options.toggleEasterEgg();
         default:
             return options;
     }

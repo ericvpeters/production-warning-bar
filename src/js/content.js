@@ -23,7 +23,6 @@ class Content {
     execute() {
         //Get the stored values
         PreferencesManager.INSTANCE().loadPreferences((items) => {
-            console.log("environment list" + items);
             for (let key in items.environments) {
                 var environment = items.environments[key];
                 if (!this.found) {
@@ -87,6 +86,11 @@ class Content {
 
                 if (items.filter !== "none") {
                     document.getElementsByTagName('body')[0].style.filter = items.filter;
+                }
+
+                if (items.easterEgg) {
+                    var imgURL = chrome.extension.getURL("img/128/factory.png");
+                    document.getElementsByTagName('body')[0].style.backgroundImage = "url(" + imgURL + ")";
                 }
                 //make sure only one bar is made
                 noMatch = false;

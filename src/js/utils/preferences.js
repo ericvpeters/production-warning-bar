@@ -28,7 +28,8 @@ class PreferencesManager {
             barText: 'In Production Environment',
             enableWarningModal: true,
             filter: 'none',
-            domainList: []
+            domainList: [],
+            easterEgg: false
         };
         return values;
     }
