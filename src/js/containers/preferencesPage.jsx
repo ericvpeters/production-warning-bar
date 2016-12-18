@@ -15,6 +15,7 @@ import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 import IconMenu from 'material-ui/IconMenu';
 import ContentAdd from 'material-ui/svg-icons/content/add';
+import Konami from 'react-konami';
 
 import WarningBarPreferences from './warningBarPreferences.jsx';
 import DomainListContainer from '../containers/domainListContainer.jsx';
@@ -22,7 +23,7 @@ import ModalPreferences from '../containers/modalPreferences.jsx';
 import WebFilterPreferences from '../containers/webFilterPreferences.jsx';
 import { FormattedMessage } from 'react-intl';
 
-import { savePreferences, addEnvironment, removeEnvironment, changeEnvironment } from '../actions/actionsType'
+import { savePreferences, addEnvironment, removeEnvironment, changeEnvironment, toggleEasterEgg } from '../actions/actionsType'
 
 class Preferences extends React.Component {
 
@@ -137,6 +138,7 @@ class Preferences extends React.Component {
                     <ModalPreferences />
                     <WebFilterPreferences />
                     <DomainListContainer />
+                    <Konami easterEgg={ () => { this.props.enableEasterEgg(); }} konami={ [38, 38, 40, 40, 37, 39, 37, 39, 66, 65] } resetDelay={ 2000 }/>
                 </StickyContainer>
                 <Drawer open={ this.state.showDrawer } >
                     <AppBar title="Environments"
@@ -202,6 +204,9 @@ const mapDispatchToProps = (dispatch) => ({
         },
         onChangeEnvironment: (name) => {
             dispatch(changeEnvironment(name));
+        },
+        enableEasterEgg: () => {
+            dispatch(toggleEasterEgg());
         }
     });
 

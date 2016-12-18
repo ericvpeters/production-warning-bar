@@ -11,7 +11,8 @@
     "redux": "~3.6.0",
     "material-ui": "~0.16.4",
     "react-sticky": "~5.0.5",
-    "react-intl": "~2.1.5"
+    "react-intl": "~2.1.5",
+    "react-konami": "~0.3.3"
   },
   "devDependencies": {
     "babel-jest": "~17.0.2",
