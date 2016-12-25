@@ -33,6 +33,7 @@
   "scripts": {
     "test": "jest test/**/*.js",
     "eslint": "./node_modules/.bin/eslint src/js/**/*.js*",
+    "eslint-fix": "./node_modules/.bin/eslint --fix src/js/**/*.js*",
     "watch": "./script/watch.sh",
     "build": "./script/build.sh",
     "production": "./script/production.sh",

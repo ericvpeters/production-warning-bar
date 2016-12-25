@@ -106,6 +106,7 @@
         "no-catch-shadow": "error",
         "no-confusing-arrow": "error",
         "no-continue": "error",
+        "no-console": ["error", { "allow": ["error"] }],
         "no-div-regex": "error",
         "no-duplicate-imports": "error",
         "no-else-return": "error",
@@ -133,7 +134,7 @@
         "no-lonely-if": "error",
         "no-loop-func": "error",
         "no-magic-numbers": "off",
-        "no-mixed-operators": "error",
+        "no-mixed-operators": "off",
         "no-mixed-requires": "error",
         "no-multi-spaces": "error",
         "no-multi-str": "error",
@@ -251,6 +252,10 @@
     },
     "globals": {
         "window": true,
-        "chrome": true
+        "chrome": true,
+        "opr": true,
+        "safari": true,
+        "isIE": true,
+        "browser": true
     }
 }

@@ -45,8 +45,7 @@ class Preferences extends React.Component {
                     tooltipPosition="bottom-left"
                 >
                     <MoreVertIcon color={grey400}/>
-                </IconButton>
-            ;
+                </IconButton>;
 
         items.forEach((item) => {
             listItems.push(<MenuItem
@@ -138,7 +137,10 @@ class Preferences extends React.Component {
                     <ModalPreferences />
                     <WebFilterPreferences />
                     <DomainListContainer />
-                    <Konami easterEgg={ () => { this.props.enableEasterEgg(); }} konami={ [38, 38, 40, 40, 37, 39, 37, 39, 66, 65] } resetDelay={ 2000 }/>
+                    <Konami easterEgg={ () => {
+                            this.props.enableEasterEgg();
+                            }
+                        } konami={ [38, 38, 40, 40, 37, 39, 37, 39, 66, 65] } resetDelay={ 2000 }/>
                 </StickyContainer>
                 <Drawer open={ this.state.showDrawer } >
                     <AppBar title="Environments"
