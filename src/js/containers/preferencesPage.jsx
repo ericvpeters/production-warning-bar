@@ -45,8 +45,7 @@ class Preferences extends React.Component {
                     tooltipPosition="bottom-left"
                 >
                     <MoreVertIcon color={grey400}/>
-                </IconButton>
-            
+                </IconButton>;
 
         items.forEach((item) => {
             listItems.push(<MenuItem
