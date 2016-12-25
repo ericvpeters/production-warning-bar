@@ -1,9 +1,13 @@
 {
-    "name": "Production Warning Bar",
-    "version": "0.1.1",
-    "manifest_version": 2,
-    "options_page": "html/options.html",
-    "permissions": [
+  "name": "Production Warning Bar",
+  "version": "0.1.1",
+  "manifest_version": 2,
+  "options_ui": {
+    "page": "html/options.html",
+    "open_in_tab": true
+  },
+
+  "permissions": [
         "storage", "tabs"
     ],
     "content_scripts": [
