@@ -46,7 +46,7 @@ class Preferences extends React.Component {
                 >
                     <MoreVertIcon color={grey400}/>
                 </IconButton>
-            ;
+            
 
         items.forEach((item) => {
             listItems.push(<MenuItem
