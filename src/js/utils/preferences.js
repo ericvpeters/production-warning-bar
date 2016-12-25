@@ -69,14 +69,14 @@ class PreferencesManager {
             firefox: {
                 loadPreferences: (callback) => {
                     browser.storage.local.get(this.defaultValues())
-                        .then(callback, () => {
+                        .then((items) => { firefoxSanitizeStorage(items, callback); }, () => {
                             console.error("Error loading preferences")
                         });
                 },
 
                 loadEnvironment: (environment, callback = () => {}) => {
                     browser.storage.local.get(environment)
-                        .then(callback, () => {
+                        .then((items) => { firefoxSanitizeStorage(items, callback); }, () => {
                             console.error("Error loading environment")
                         });
                 },
@@ -84,7 +84,7 @@ class PreferencesManager {
                 loadEnvironmentPreferences: (environment, callback = () => {}) => {
                     const dataToRead = {[environment]: this.defaultEnvironmentValues()};
                     browser.storage.local.get(dataToRead[environment])
-                        .then(callback, () => {
+                        .then((items) => { firefoxSanitizeStorage(items, callback); }, () => {
                             console.error("Error loading environment preferences");
                         });
                 },
@@ -98,7 +98,7 @@ class PreferencesManager {
 
                 removeEnvironment: (environment, callback = () => {
                 }) => {
-                    browser.storage.local.set(environment)
+                    browser.storage.local.remove(environment)
                         .then(callback, () => {
                             console.error("Error removing enviroment");
                         });
@@ -114,8 +114,24 @@ class PreferencesManager {
             }
         };
     }
-
-
 }
+
+/*
+ When used within a content script in Firefox versions prior to 52, the Promise returned by browser.storage.local.get()
+ is fulfilled with an Array containing one Object. The Object in the Array contains the keys found in the storage area,
+ as described above. The Promise is correctly fulfilled with an Object when used in the background context (background
+ scripts, popups, options pages, etc.). When this API is used as chrome.storage.local.get(), it correctly passes an
+ Object to the callback function.
+ See https://developer.mozilla.org/en-US/Add-ons/WebExtensions/API/storage/StorageArea/get
+ */
+function firefoxSanitizeStorage(items, callback) {
+    if (items instanceof Array) {
+        callback(items[0]);
+    } else {
+        callback(items);
+    }
+}
+
+
 
 export default PreferencesManager;
