@@ -12,12 +12,13 @@ class BrowserDetector {
             return "firefox";
         }
 
-        return "chrome"; //From extension's options, isChrome function does not work
+        //From extension's options, isChrome function does not work
+        return "chrome";
     }
 
     // Opera 8.0+
     isOpera() {
-        return (!!window.opr && !!opr.addons) || !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0
+        return Boolean(window.opr) && Boolean(opr.addons) || Boolean(window.opera) || navigator.userAgent.indexOf(' OPR/') >= 0;
     }
 
     // Firefox 1.0+
@@ -27,28 +28,20 @@ class BrowserDetector {
 
     // Safari 3.0+ "[object HTMLElementConstructor]"
     isSafari() {
-        Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0 ||
-        (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || safari.pushNotification);
-    }
-
-    // Internet Explorer 6-11
-    isIE() {
-        return /*@cc_on!@*/false || !!document.documentMode;
+        let safariNotification = (function (value) {
+            return value.toString() === "[object SafariRemoteNotification]";
+        }(!window.safari || safari.pushNotification));
+        return Reflect.apply(toString, window.HTMLElement).indexOf('Constructor') > 0 || safariNotification;
     }
 
     // Edge 20+
     isEdge() {
-        return !isIE && !!window.StyleMedia;
-    };
+        return !isIE && Boolean(window.StyleMedia);
+    }
 
     // Chrome 1+
     isChrome() {
-        return !!window.chrome && !!window.chrome.webstore;
-    }
-
-    // Blink engine detection
-    isBlink() {
-        return (isChrome || isOpera) && !!window.CSS;
+        return Boolean(window.chrome) && Boolean(window.chrome.webstore);
     }
 }
 
